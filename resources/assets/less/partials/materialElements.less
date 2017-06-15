@@ -1,0 +1,135 @@
+@import (once)"materialColors";
+@import (once)"antd_vars";
+
+.shadow-depth1 {
+    box-shadow: 0 1px 6px fade(@fullBlack, round(12/1.02, 2)), 0 1px 4px fade(@fullBlack, round(12/1.02, 2)) !important;
+}
+
+.shadow-depth2 {
+    box-shadow: 0 3px 10px fade(@fullBlack, round(16/1.02, 2)), 0 3px 10px fade(@fullBlack, round(23/1.02, 2));
+}
+
+.shadow-depth3 {
+    box-shadow: 0 10px 30px fade(@fullBlack, round(19/1.02, 2)), 0 6px 10px fade(@fullBlack, round(23/1.02, 2));
+}
+
+.shadow-depth4 {
+    box-shadow: 0 14px 45px fade(@fullBlack, round(25/1.02, 2)), 0 10px 18px fade(@fullBlack, round(22/1.02, 2));
+}
+
+.shadow-depth5 {
+    box-shadow: 0 19px 60px fade(@fullBlack, round(30/1.02, 2)), 0 15px 20px fade(@fullBlack, round(22/1.02, 2));
+}
+
+.enhancedTextField {
+    display: inline-block;
+    & > div:first-child {
+
+        font-size: @font-size-base !important;
+
+        & > div {
+            font-size: @font-size-base;
+            bottom: @font-size-base - 3 !important;
+            transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1) 0ms !important;
+        }
+
+        & > label {
+            font-size: @font-size-base + 3;
+            transform: scale(0.75) translate(0px, -( @font-size-base * 2 )) !important;
+        }
+
+        & > input {
+            font-size: @font-size-base !important;
+        }
+    }
+
+    &.focused > div {
+        & > label {
+            font-weight: 500;
+        }
+    }
+
+    &.fixed > div {
+        & > label {
+            font-size: @font-size-base !important;
+            transform: scale(1) translate(0px, 0px) !important;
+        }
+    }
+
+    &.focused.fixed > div {
+        & > label {
+            font-size: @font-size-base + 3 !important;
+            transform: scale(0.75) translate(0px, -( @font-size-base * 2 )) !important;
+        }
+    }
+
+    .checkboxContainer {
+        display: inline-block;
+        position: relative;
+
+        & > div{
+            cursor: default !important;
+        }
+
+        & > div > div{
+            text-align: left;
+            & > div{
+                margin: 0 !important;
+            }
+        }
+
+        .tooltip{
+            font-size: @font-size-base - 1 !important;
+            margin-left: -(@font-size-base + 2) !important;
+        }
+    }
+
+    & > div.token:first-child{
+        width: 20px !important;
+        margin: 0 5px 0 0;
+        font-size: 16px;
+        white-space: nowrap;
+
+        & > input {
+            font-size: 16px !important;
+            padding-left: 5px !important;
+        }
+
+        & > div{
+            text-align: center !important;
+            width: 100%;
+        }
+    }
+
+    & > div.token.focused:first-child{
+        & > label{
+            font-weight: 500;
+        }
+    }
+}
+
+.subMenu{
+    font-size: 12px !important;
+    line-height: 36px !important;
+    min-height: 36px !important;
+}
+
+.mui-dialog{
+    &:extend( ._noSelectable );
+    .mui-dialog-content{
+        width: 50% !important;
+        & > div {
+
+            .mui-dialog-body{
+                font-size: 13px !important;
+                letter-spacing: -0.4px;
+            }
+
+            .mui-dialog-title{
+                font-size: 20px !important;
+                letter-spacing: -0.7px;
+                font-weight: 500 !important;
+            }
+        }
+    }
+}

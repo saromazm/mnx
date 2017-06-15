@@ -1,0 +1,15 @@
+<?php
+    namespace DummyNamespace;
+
+    use Monoux\Models\MonouxModel;
+
+    class DummyClass extends MonouxModel {
+
+            protected $table    = '';
+            protected $fillable = [];
+            protected $visible  = [];
+            protected $hidden   = [];
+            protected $dates    = [];
+
+            public $timestamps = true;
+    }

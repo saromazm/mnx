@@ -1,0 +1,177 @@
+/*
+ * File: dateCards.less | Package: monoux
+ *
+ * Author:    Miguel Zamora Serrano <mzamoras@backlogics.com>
+ * Created:   19 May, 2017 | 11:19 PM
+ *
+ * This file is part of a package and all the information, intellectual
+ * and technical concepts contained here are property of their owners.
+ * Any kind of use, reproduction, distribution, publication, etc. without
+ * express written permission from CapitalMental && BackLogics Technologies
+ * is strictly forbidden.
+ *
+ * CapitalMental && BackLogics Technologies
+ * Copyright 2014-present. | All rights reserved.
+ */
+
+@import (once)"materialColors";
+@import (once)"antd_vars";
+
+.DateCard--SC {
+    display: inline-block;
+    padding: 12px 15px 15px 15px;
+    position: relative;
+    text-align: center;
+    border-radius: 2px;
+    //margin-right: 10px;
+    //margin: 10px;
+    transition: all 250ms;
+    &:extend( .shadow-depth1 );
+    line-height: 15px;
+
+    .year {
+        font-size: 10px;
+        font-weight: 700;
+        position: absolute;
+        letter-spacing: -0.4px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 0 0 2px 2px;
+        width: auto;
+        background-color: @grey100;
+    }
+    .month {
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 700;
+        position: absolute;
+        top: 2px;
+        &:extend(.u-forceCenter-horizontal);
+    }
+    .day {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -1px;
+        line-height: 27px;
+    }
+}
+
+.past{
+    .DateCard--SC {
+        color: @grey400;
+        .year{
+            color: @white;
+            background-color: @grey300;
+        }
+    }
+}
+
+.future{
+    .DateCard--SC {
+        color: @grey500;
+        .year{
+            background-color: @deepOrange300;
+            color: @white;
+        }
+    }
+}
+
+.current{
+    .DateCard--SC {
+        color: @white;
+        background-color: @deepOrange300;
+        .year{
+            background-color: @deepOrange400;
+            color: @white;
+        }
+    }
+}
+
+.isOpen{
+    .DateCard--SC {
+        border:2px solid red;
+    }
+}
+
+.isClosed{
+    .DateCard--SC {
+        border:2px solid green;
+    }
+}
+.distantPast{
+    .DateCard--SC {
+       // opacity: 0.3;
+        border: none;
+        background-color: @white;
+        color: @grey300;
+        //box-shadow: none !important;
+        //text-shadow: 0 -1px 0 fade(black, 12);
+        //border: 1px solid @grey200;
+        .year{
+            //background-color: @grey400;
+            //color: @grey50;
+            color: @grey400;
+        }
+    }
+}
+
+.eventsList {
+
+    & > div {
+        padding: 10px 10px 0 0;
+        display: inline-block;
+        position: relative;
+
+        .title {
+            display: none;
+        }
+
+        .type{
+            text-align: center;
+            letter-spacing: -0.3px;
+            text-transform: uppercase;
+            color: @grey500;
+            font-size: 9px;
+            font-weight: 700;
+            padding-top: 5px;
+        }
+    }
+}
+
+.card-wrapper {
+    @color: @deepOrange300;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+
+    .arrow{
+        position: relative;
+        //border:1px solid red;
+        width: 10px;
+        height: 3px;
+        margin: 0 15px;
+        background-color: @color;
+
+        &:before{
+            display: inline-block;
+            content: '';
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            left: -6px;
+            top: -2px;
+            border-radius: 10px;
+            border:2px solid @color;
+        }
+
+        &:after{
+            display: inline-block;
+            content: '';
+            .triangle(right, 7px, 9px, @color);
+            position: absolute;
+            right: -6px;
+            top: -3px;
+        }
+    }
+}

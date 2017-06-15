@@ -1,0 +1,164 @@
+@import (once) "./antd_vars";
+@import (once) "./utilities";
+
+button{
+    cursor: default !important;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px rgb(234,239,242) inset;
+}
+
+.mnx{
+    &.fit{
+        margin: 0; padding: 0; line-height: 1em;
+    }
+
+    &.font2{
+        font-family: Lato, serif;
+    }
+
+    .mini{
+        font-size: 0.6em;
+    }
+
+    .semi-bold{
+        font-weight: 500;
+    }
+}
+
+hr{
+    &.mnx{
+        border: none;
+        border-bottom: 1px solid @btn-default-border;
+        margin: 0; padding: 0;
+    }
+    &.spaced{
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    &.double-spaced{
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+    }
+}
+
+.mnx.menuCell{
+    .title{
+        font-size: 1.2em;
+        letter-spacing: -0.5px;
+        font-weight: 700;
+    }
+    line-height: 1em;
+    letter-spacing: -0.3px;
+    padding: 25px 10px 25px 30px;
+    border-bottom: 1px solid lightgray;
+}
+
+.ant-badge{
+    line-height: normal;
+    vertical-align: inherit;
+}
+
+/** T I T L E **/
+/** ************************************************* **/
+.mnx.title {
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2em;
+    letter-spacing: -0.03em;
+    display: inline-block;
+    position: relative;
+    text-align: left !important;
+
+    &.reversed{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .subtitle {
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1em;
+        text-transform: none;
+
+        &.uppercased{
+            text-transform: uppercase;
+            line-height: 1.2em;
+            font-size: 10px !important;
+        }
+    }
+
+    &.tiny {
+        font-size: 13px;
+        .subtitle {
+            font-size: 11px;
+        }
+    }
+
+    &.small {
+        font-size: 15px;
+        .subtitle {
+            font-size: 11px;
+        }
+    }
+
+    &.medium {
+        font-size: 17px;
+        .subtitle {
+            font-size: 12px;
+        }
+    }
+
+    &.big {
+        font-size: 19px;
+        .subtitle {
+            font-size: 12px;
+        }
+    }
+
+    &.huge {
+        font-size: 24px;
+        .subtitle {
+            font-size: 13px;
+        }
+    }
+
+    &.uppercased {
+        text-transform: uppercase;
+    }
+
+    &.underlined{
+        padding-bottom: 4px;
+        border-bottom: 1px solid @grey200;
+
+        &:after{
+            content: '';
+            display: block;
+            position: absolute;
+            height: 2px;
+            background-color: @deepOrange300;
+            width: 0;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 200ms;
+        }
+
+        &:hover, &.active{
+            &:after{
+                width: 100%;
+            }
+        }
+    }
+
+    &.block{
+        display: block;
+    }
+
+    &.centered{
+        text-align: center !important;
+    }
+}

@@ -1,0 +1,250 @@
+._noSelectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+._noOutline {
+    outline: 0 !important;
+    outline-style: none !important;
+    -moz-outline-style: none !important;
+}
+
+._flex_row_center_start {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+._flex_row_center_end {
+    &:extend( ._flex_row_center_start );
+    justify-content: flex-end;
+}
+
+._def_transition {
+    transition: all 200ms cubic-bezier(.55, 0, .1, 1);
+}
+
+._ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.position( @pos, @list ) {
+    position: @pos;
+    & when not( extract(@list, 1) = null) {
+        top: extract(@list, 1);
+    }
+    & when not( extract(@list, 2) = null) {
+        right: extract(@list, 2);
+    }
+    & when not( extract(@list, 3) = null) {
+        bottom: extract(@list, 3);
+    }
+    & when not( extract(@list, 4) = null) {
+        left: extract(@list, 4);
+    }
+}
+
+.flex_row( @align: center, @justify:flex-end ) {
+    display: flex;
+    flex-direction: row;
+    & when not( @align = false ) {
+        align-items: @align;
+        align-content: @align;
+    }
+
+    & when not( @justify = false ) {
+        justify-content: @justify;
+    }
+}
+
+.shadow( @level: soft ) {
+    & when ( @level = soft ) {
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .07), 0 0 10px 0 rgba(0, 0, 0, .06), 0 1px 4px -1px rgba(0, 0, 0, .1);
+    }
+    & when ( @level = hard ) {
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+    }
+}
+
+.absoluteFull {
+    .position(absolute; 0 0 0 0);
+}
+
+@animationDurationTime: 0.2s;
+@animationDelayTime: 0s;
+@animationFillMode: both;
+
+//@import "@{animationLessLocation}/animated.less";
+//@import "@{animationLessLocation}/bounceInDown.less";
+@import '../../../../node_modules/animate.css/animate.css';
+@import '../../../../node_modules/animate.less/source/animated';
+@import '../../../../node_modules/animate.less/source/bounce';
+@import '../../../../node_modules/animate.less/source/bounceIn';
+@import '../../../../node_modules/animate.less/source/bounceInDown';
+@import '../../../../node_modules/animate.less/source/bounceInUp';
+@import '../../../../node_modules/animate.less/source/bounceInRight';
+@import '../../../../node_modules/animate.less/source/fadeInRightBig';
+
+.animated {
+    .animated();
+}
+
+@import "./materialColors";
+@import "./materialElements";
+@import "../../css/cm-font.css";
+@import "../../../../node_modules/react-virtualized/styles.css";
+@import "./slidingMenu";
+@import "./fullCalendar";
+@import "./dateCards";
+//@import "../../../../node_modules/fullcalendar/dist/fullcalendar.min.css";
+/*
+@import "../../../../node_modules/antd/dist/antd";
+@import "./antd_vars";
+@import "elements";*/
+
+
+@import '../../../../node_modules/react-scrollbars2/compiled/Scrollbars2/style/style';
+@import '../../../../node_modules/react-scrollbars2/compiled/Scrollbars2/style/variables';
+
+@componentName: sb2-scrollbars2;
+@baseTransition: 200ms cubic-bezier(.55, 0, .1, 1);
+/* global utilities */
+.u-pad0 {
+    padding: 0;
+}
+
+.u-mar0 {
+    margin: 0;
+}
+
+.u-noOverflow {
+    overflow: hidden;
+}
+
+.u-absolute{
+    position: absolute;
+}
+
+.u-absolute--all{
+    &:extend( .u-absolute );
+    top: 0; bottom: 0; left: 0; right: 0;
+}
+
+.u-relative{
+    position: relative;
+}
+
+.u-inlineBlock{
+    display: inline-block;
+}
+
+.u-forceCenter {
+    &:extend( .u-absolute );
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.u-forceCenter-vertical {
+    &:extend( .u-absolute );
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.u-forceCenter-horizontal {
+    &:extend( .u-absolute );
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.u-translateX-all-left{
+    transform: translateX(100%);
+}
+
+.u-translateX-all-right{
+    transform: translateX(-100%);
+}
+
+.u-translateX-reset{
+    transform: translateX(0);
+}
+
+.v-transition300cubic{
+    transition: all 300ms cubic-bezier(.55, 0, .1, 1);
+}
+
+.v-transition250cubic{
+    transition: all 200ms cubic-bezier(.55, 0, .1, 1);
+}
+
+.v-l-spacing-small{
+    letter-spacing: -0.3px;
+}
+
+.v-l-spacing-med{
+    letter-spacing: -0.5px;
+}
+
+.v-l-spacing-big{
+    letter-spacing: -0.7px;
+}
+
+// Triangle Mixin
+.triangle(@_, @width, @height, @color){
+    width: 0;
+    height: 0;
+    border: solid transparent;
+}
+.triangle(top, @width, @height, @color){
+    border-width: 0 @width/2 @height @width/2;
+    border-bottom-color: @color;
+    border-left-color: fade(@color, 0);
+    border-right-color: fade(@color, 0);
+}
+.triangle(bottom, @width, @height, @color){
+    border-width: @height @width/2 0 @width/2;
+    border-top-color: @color;
+    border-left-color: fade(@color, 0);
+    border-right-color: fade(@color, 0);
+}
+.triangle(right, @width, @height, @color){
+    border-width: @height/2 0 @height/2 @width;
+    border-left-color: @color;
+    border-top-color: fade(@color, 0);
+    border-bottom-color: fade(@color, 0);
+}
+.triangle(left, @width, @height, @color){
+    border-width: @height/2 @width @height/2 0;
+    border-right-color: @color;
+    border-top-color: fade(@color, 0);
+    border-bottom-color: fade(@color, 0);
+}
+.triangle(top-right, @width, @height, @color){
+    border-width: 0 @width @height 0;
+    border-right-color: @color;
+    border-bottom-color: fade(@color, 0);
+}
+.triangle(top-left, @width, @height, @color){
+    border-width: @height @width 0 0;
+    border-top-color: @color;
+    border-right-color: fade(@color, 0);
+}
+.triangle(bottom-right, @width, @height, @color){
+    border-width: 0 0 @height @width;
+    border-bottom-color: @color;
+    border-left-color: fade(@color, 0);
+}
+.triangle(bottom-left, @width, @height, @color){
+    border-width: @height 0 0 @width;
+    border-left-color: @color;
+    border-top-color: fade(@color, 0);
+}

@@ -1,0 +1,147 @@
+@import (once)"./materialColors";
+@import (once)"./utilities";
+
+//Dots animation variables [ x, y ]
+@sizeBase: 5px 5px;
+@maxSize: 10px 10px;
+@bounceSize: 14px 7px;
+@baseStroke: 2px;
+@maxStroke: 4px;
+
+@colorBase: @deepOrange300;
+@shadowColor: @black;
+
+
+.Loading--SC {
+
+    .overlay{
+        z-index: 1;
+        position: absolute;
+        width: 100%; height: 100%;
+        background-color: @lightBlack;
+
+        //border: 3px solid crimson;
+    }
+
+    .contain-dots {
+        z-index: 2;
+        width: 150px;
+        height: 110px;
+        &:extend( .u-forceCenter );
+        margin-top: 30px;
+
+        .message {
+            &:extend(.u-absolute);
+            width: 100%;
+            text-align: center;
+            top: -5px;
+            color: @lightWhite;
+            font-weight: 500;
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            &:before{
+                &:extend(.u-absolute); height: 2px; width: 100%; left: 0; bottom: -5px;
+                content: '';
+                border-bottom: 1px solid @lightWhite;
+            }
+            &:after{
+                &:extend(.u-absolute); height: 2px; width: 10%; left: 0; bottom: -5px;
+                content: '';
+                border-bottom: 2px solid @deepOrange500;
+                animation: loadingText 1200ms infinite ease-in-out;
+            }
+        }
+
+        svg {
+            position: absolute;
+            width: 150px;
+            height: 110px;
+
+            ellipse {
+                cx: 25px;
+                cy: 10px;
+
+                rx: extract(@sizeBase, 1);
+                ry: extract(@sizeBase, 2);
+
+                stroke-width: @baseStroke;
+                transform-origin: center;
+            }
+        }
+        .svgLoop(10);
+    }
+}
+
+.svgLoop (@loops, @i:0) when (@i < @loops) {
+    @index: @i + 1;
+    @delay: 70ms;
+    @speed: 500ms;
+    @colorIndex: (@index + 2) * 100;
+    @colors: @deepOrange200 @deepOrange300 @deepOrange400 @deepOrange500 @deepOrange600;
+
+    svg:nth-of-type(@{index}) ellipse {
+
+        //Ellipses
+        & when (@i < 5) {
+            @cl: ~"@{lightBlue@{colorIndex}}";
+            //stroke: @cl;
+            stroke: extract( @colors, @i + 1 );
+            fill: none;
+            cx: 25px + ( 25 * @i );
+            cy: 54px;
+            animation: jump @speed infinite ease-in-out;
+            animation-delay: @delay * @i;
+        }
+        //Shadows
+        & when (@i >= 5) {
+            fill: @shadowColor;
+            rx: 7px;
+            ry: 3px;
+            cy: 60px;
+            cx: 25px + ( 25 * (@i - 5) );
+            opacity: 0.10;
+            animation: shadow @speed infinite ease-in-out;
+            animation-delay: @delay * (@i - 5);
+        }
+    }
+    .svgLoop(@loops, @i + 1);
+}
+
+@keyframes shadow {
+    45% {
+        opacity: .05;
+        rx: 0px;
+        ry: 0px;
+        transform: translateY(5px) scale(.7);
+    }
+}
+
+@keyframes loadingText {
+    50%{
+        width: 50%;
+        right: 0;
+        left: auto;
+        opacity: 0.7;
+    }
+}
+
+@keyframes jump {
+
+    @baseSize: 5;
+    @fullSize: (@baseSize * 1.5);
+
+    60% {
+        transform: translateY(-20px) scale(.7);
+        opacity: .9;
+    }
+    25% {
+        rx: 5px;
+        ry: 5px;
+    }
+
+    15% {
+        rx: 7px;
+        ry: 2px;
+    }
+}

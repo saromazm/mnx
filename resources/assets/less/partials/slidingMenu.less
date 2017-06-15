@@ -1,0 +1,164 @@
+/*
+ * File: slidingMenu.less | Package: monoux
+ *
+ * Author:    Miguel Zamora Serrano <mzamoras@backlogics.com>
+ * Created:   20 May, 2017 | 2:17 AM
+ *
+ * This file is part of a package and all the information, intellectual
+ * and technical concepts contained here are property of their owners.
+ * Any kind of use, reproduction, distribution, publication, etc. without
+ * express written permission from CapitalMental && BackLogics Technologies
+ * is strictly forbidden.
+ *
+ * CapitalMental && BackLogics Technologies
+ * Copyright 2014-present. | All rights reserved.
+ */
+@import (once)"materialColors";
+@import (once)"antd_vars";
+
+.SlidingMenu--CT {
+    &:extend(.u-absolute--all);
+    overflow: hidden;
+    transition: none;
+
+    &.menu-forward-enter {
+        &:extend(.u-translateX-all-left);
+
+        &.menu-forward-enter-active {
+            &:extend(.u-translateX-reset, .v-transition250cubic);
+        }
+    }
+
+    &.menu-forward-leave {
+        &:extend(.u-translateX-reset);
+
+        &.menu-forward-leave-active {
+            &:extend(.u-translateX-all-right, .v-transition250cubic);
+        }
+    }
+
+    &.menu-backward-enter {
+        &:extend(.u-translateX-all-right);
+
+        &.menu-backward-enter-active {
+            &:extend(.u-translateX-reset, .v-transition250cubic);
+        }
+    }
+
+    &.menu-backward-leave {
+        &:extend(.u-translateX-reset);
+
+        &.menu-backward-leave-active {
+            &:extend(.u-translateX-all-left, .v-transition250cubic);
+        }
+    }
+}
+
+.SlidingMenuCell--SC {
+
+    @fColor: @grey700;
+    @fColorMid: fade(@fColor, 60);
+    @fColorLight: fade(@fColor, 30);
+
+    @inv_fColor: @white;
+    @inv_fColorMid: fade(@inv_fColor, 60);
+    @inv_fColorLight: fade(@inv_fColor, 30);
+
+
+    @fColorInv: @white;
+
+
+    &:extend( ._noSelectable, .u-relative, .v-transition300cubic );
+    outline: none;
+
+    //Ripple Container
+    & > div {
+
+        letter-spacing: -0.4px;
+        border-bottom: 1px solid @grey100;
+
+        & > .id {
+            position: absolute;
+            bottom: 0;
+            padding: 2px 5px;
+            font-size: 10px;
+            font-weight: 700;
+            background-color: @grey200;
+            border-radius: 0 3px 0 0;
+        }
+
+        & > .body {
+            padding: 15px 10px 15px 65px;
+            line-height: 1em;
+        }
+
+        & > .icon {
+            &:extend( .u-forceCenter-vertical );
+            left: 17px;
+            font-size: 32px;
+            transition: all 300ms;
+            border-bottom: 3px solid transparent;
+            color: @fColorLight;
+        }
+
+        h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        p {
+            color: @fColorMid;
+            font-size: 12px;
+            line-height: 1.2em;
+        }
+
+        p.fixed {
+            margin-top: .2em;
+            opacity: 1;
+            color: @deepOrange200;
+            font-weight: 700;
+            &:extend(._ellipsis);
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+    }
+
+    &:focus {
+        background-color: @grey100;
+    }
+
+    &.active {
+        color: @fColor;
+        background-color: @grey300;
+
+        & > div {
+            & > .icon {
+                color: @fColorMid;
+                border-bottom-color: @deepOrange300;
+                padding-bottom: 4px;
+                opacity: 1;
+            }
+            p {
+                color: @fColorMid;
+            }
+            p.fixed {
+                color: @fColor;
+            }
+        }
+
+        &:focus {
+            background-color: @deepOrange400;
+            color: @inv_fColor;
+            .icon {
+                color: @inv_fColorLight
+            }
+            p{
+                color: @inv_fColorMid;
+            }
+            p.fixed{
+                color: @inv_fColor;
+            }
+        }
+    }
+}
