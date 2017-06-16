@@ -222,11 +222,11 @@ class Company extends React.Component {
         //dd( pp );
         //dd("F", this.state.projectsManager.filteredProjects);
 
-        if(1 === 1){
+        /*if(1 === 1){
             return(
                 <div>MODULE</div>
             )
-        }
+        }*/
 
         return (
             <ModuleContainer className={cssClass} >

@@ -162,9 +162,16 @@ html, body, #appRoot {
 
 .topBar {
     &:extend( ._noSelectable );
+
+    .leftContainer{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
     .brand {
         display: flex;
-        margin-left: 30px;
+        margin-left: 10px;
 
         & > div {
             padding: 0 10px 0 0;
@@ -235,6 +242,14 @@ html, body, #appRoot {
         &:extend( .u-absolute--all, .u-noOverflow, .animated, .bounceInDown );
         flex-direction: row;
         top: 50px;
+        transition: all 450ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
+
+        &.drawer{
+            padding-left: 250px;
+            /*& > .mainContent-layout {
+                padding-left: 0;
+            }*/
+        }
 
         & > .leftBar-layout {
             &:extend( .shadow-depth1, .u-noOverflow );
@@ -242,10 +257,11 @@ html, body, #appRoot {
             padding-bottom: 48px;
         }
 
-        & > .mainContent-layout {
+        /*& > .mainContent-layout {
             //padding: 0 24px 24px;
+
             padding-left: 5px;
-        }
+        }*/
 
         & > .rightBar-layout {
             &:extend( .shadow-depth1, .u-noOverflow );
@@ -2032,7 +2048,7 @@ html, body, #appRoot {
         position: absolute;
         //border-radius: 1000px;
         z-index: 1;
-        top: 0px;
+        top: 0;
         right: 0;
     }
     /*.title {

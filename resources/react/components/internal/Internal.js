@@ -15,7 +15,9 @@
  */
 
 import React from 'react';
+import classNames from 'classnames';
 import {Layout} from 'antd';
+import Drawer from 'material-ui/Drawer';
 
 import MainContent from './MainContent';
 import LeftBar from '../sideBars/LeftBar';
@@ -26,22 +28,38 @@ import AboutUsDialogView from '../global/AboutUsDialogView';
 import ReLoginDialogView from '../global/ReLoginDialogView';
 
 
-const Internal = () => {
-    return (
-        <Layout className="InternalContainer--CT" >
-            <TopBar/>
+class Internal extends React.Component {
 
-            <Layout className="mainContainer-layout">
+    constructor( props ) {
+        super( props );
+        this.state       = { drawerOpen: true };
+        this.closeDrawer = this.closeDrawer.bind( this );
+    }
 
-                <LeftBar className="leftBar-layout"/>
-                <MainContent className="mainContent-layout"/>
-                <RightBar className="rightBar-layout"/>
+    closeDrawer() {
+        this.setState( { drawerOpen: !this.state.drawerOpen } )
+    }
+
+    render() {
+        const mainCSS = classNames( 'mainContainer-layout', {
+            drawer: this.state.drawerOpen
+        } );
+        return (
+            <Layout className="InternalContainer--CT" >
+                <TopBar drawerCloser={this.closeDrawer}/>
+                <Layout className={mainCSS} >
+                    <Drawer width={250} open={this.state.drawerOpen} >
+                        <LeftBar className="leftBar-layout" />
+                    </Drawer>
+                    <MainContent className="mainContent-layout" />
+                    <RightBar className="rightBar-layout" />
+                </Layout>
+
+                <ReLoginDialogView/>
+                <AboutUsDialogView/>
             </Layout>
-
-            <ReLoginDialogView/>
-            <AboutUsDialogView/>
-        </Layout>
-    )
-};
+        );
+    }
+}
 
 export default Internal

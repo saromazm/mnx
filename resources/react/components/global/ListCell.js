@@ -15,11 +15,11 @@
  */
 
 /* globals mnx, dd */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import autobind from 'react-autobind-helper';
 import classNames from 'classnames';
+
 
 import TouchRipple from 'material-ui/internal/TouchRipple';
 import Checkbox from 'material-ui/Checkbox';
@@ -62,7 +62,7 @@ class ListCell extends React.Component {
 
     setContainer( container ) {
         this.container = container;
-        if( !container ) return;
+        if ( !container ) return;
         if ( this.props.usesInfiniteList ) {
             this.wrapper        = container.parentNode;
             this.page           = this.wrapper.parentNode;
@@ -184,6 +184,11 @@ class ListCell extends React.Component {
         this.mounted = true;
     }
 
+/*    shouldComponentUpdate( nextProps ) {
+        dd( shallowEqual( nextProps, this.props ) );
+        return true;
+    }*/
+
     render() {
         const { titleIndex, subtitleIndex, descriptionIndex, iconIndex, children, menuItems }             = this.props;
         const { checkbox, labels, counter, index, ripple, iconURL, iconFont, iconSize }                   = this.props;
@@ -203,19 +208,18 @@ class ListCell extends React.Component {
             noLabels                       : !labels,
             ['vSpacing-' + verticalSpacing]: verticalSpacing
         } );
-        const cssTitle = classNames( "mnx title tiny", {
-            underlined: underlinedTitle, block: !underlinedTitle, active: activeTitle
-        } );
+
 
         const style = {
             animationDelay: ((index || counter) * 35) + "ms"
         };
 
-        const labelsArr = Array.isArray( labels ) ? labels : [labels];
-        const Ripple    = ripple ? TouchRipple : 'div';
+        const labelsArr       = Array.isArray( labels ) ? labels : [labels];
+        const Ripple          = ripple ? TouchRipple : 'div';
+        const CheckBoxElement = checkbox ? Checkbox : 'div';
 
         return (
-            <div ref={ c => this.setContainer(c)}
+            <div ref={ c => this.setContainer( c )}
                  className={cssClass}
                  style={style}
                  onClick={this.onClick}
@@ -227,19 +231,18 @@ class ListCell extends React.Component {
 
                     <div className="leftContainer" >
                         <div className="counter" >{counter === null ? '' : counter + 1}</div>
-                        {iconURL && <img className="icon" src={iconURL} alt="" />}
-                        {iconFont && <i className={"icon " + iconFont} src={iconFont} alt="" />}
-                        {iconIndex && children[iconIndex]}
-                        <Checkbox className="checkbox" />
+                        <CellIcon url={iconURL} font={iconFont} element={children[iconIndex] || null} />
+                        <CheckBoxElement className="checkbox" />
                     </div>
 
-                    <div className={cssTitle} >
-                        {children && children[titleIndex]}
-                        <div className="subtitle" >
-                            {children && children[subtitleIndex]}
-                        </div>
+                    <CellTitle
+                        title={children[titleIndex]}
+                        subtitle={children[subtitleIndex]}
+                        underlined={underlinedTitle}
+                        asBlock={!underlinedTitle}
+                        active={activeTitle}
+                    />
 
-                    </div>
                     <div className="description" >
                         {children && children[descriptionIndex]}
                     </div>
@@ -247,18 +250,7 @@ class ListCell extends React.Component {
                         {labelsArr.map( ( label, indx ) => <div key={'label' + indx} >{label}</div> )}
                     </div>
 
-                    {menuItems.length > 0 &&
-                    <IconMenu className="icon-menu"
-                              useLayerForClickAway={true}
-                              iconButtonElement={<IconButton className="iButton" ><MoreVertIcon /></IconButton>}
-                              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-                              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    >
-                        {menuItems.map( menu => (
-                            <MenuItem className="sub-menu" primaryText={menu.label} key={'menu' + menu.label} />
-                        ) )}
-                    </IconMenu>
-                    }
+                    <CellMenu items={menuItems} />
 
                 </Ripple>
             </div>
@@ -345,3 +337,98 @@ class ListCell extends React.Component {
 }
 
 export default ListCell;
+
+class CellTitle extends React.Component {
+    render() {
+        const { title, subtitle }             = this.props;
+        const { underlined, asBlock, active } = this.props;
+
+        const cssTitle = classNames( "mnx title tiny", {
+            underlined, block: asBlock, active
+        } );
+
+        return (
+            <div className={cssTitle} >
+                {title}
+                { subtitle && <div className="subtitle" >{subtitle}</div> }
+            </div>
+        );
+    }
+
+    static defaultProps = {
+        className: '',
+    };
+
+    static propTypes = {
+        className : PropTypes.string,
+        title     : PropTypes.node.isRequired,
+        subtitle  : PropTypes.node,
+        underlined: PropTypes.bool,
+        asBlock   : PropTypes.bool,
+        active    : PropTypes.bool,
+    };
+}
+
+class CellIcon extends React.Component {
+    render() {
+        const { url, font, element } = this.props;
+        if ( !url && !font && !element ) return null;
+
+        if ( element ) return element;
+
+        if ( font ) {
+            return (
+                <i className={"icon " + font} alt="" />
+            )
+        }
+
+        if ( url ) {
+            return (
+                <img className="icon" src={url} alt="" />
+            )
+        }
+
+        return null;
+    }
+
+    static defaultProps = {
+        className: '',
+    };
+
+    static propTypes = {
+        className: PropTypes.string,
+        url      : PropTypes.string,
+        font     : PropTypes.string,
+        element  : PropTypes.node
+    };
+}
+
+class CellMenu extends React.Component {
+    render() {
+        const { items } = this.props;
+        if ( items.length === 0 ) return null;
+
+        return (
+            <IconMenu className="icon-menu"
+                      useLayerForClickAway={true}
+                      iconButtonElement={<IconButton className="iButton" ><MoreVertIcon /></IconButton>}
+                      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                      targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+            >
+                {items.map( menu => (
+                    <MenuItem className="sub-menu" primaryText={menu.label} key={'menu' + menu.label} />
+                ) )}
+            </IconMenu>
+        );
+    }
+
+    static defaultProps = {
+        className: '',
+        items    : [],
+    };
+
+    static propTypes = {
+        className: PropTypes.string,
+        items    : PropTypes.array
+    };
+}

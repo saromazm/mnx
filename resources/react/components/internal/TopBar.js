@@ -17,6 +17,7 @@
 /* global axios */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'react-autobind-helper';
 import shallowEqual from 'shallowequal';
 import AppBar from 'material-ui/AppBar';
@@ -25,6 +26,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import Divider from 'material-ui/Divider';
 import BadgeAnt from 'antd/lib/badge';
 import Switch from 'antd/lib/switch';
@@ -69,11 +71,16 @@ class TopBar extends React.Component {
     /** ************************************************* **/
     brandSection() {
         return (
-            <div className="brand" onDoubleClick={this.onDoubleClickLogo} >
-                <MonouxLogo width={32} borderRadius={3} />
-                <div className="slogan" >
-                    <h3>monoux</h3>
-                    <span>apps made for humans</span>
+            <div className="leftContainer">
+                <IconButton onClick={ this.props.drawerCloser }>
+                    <MenuIcon/>
+                </IconButton>
+                <div className="brand" onDoubleClick={this.onDoubleClickLogo} >
+                    <MonouxLogo width={32} borderRadius={3} />
+                    <div className="slogan" >
+                        <h3>monoux</h3>
+                        <span>apps made for humans</span>
+                    </div>
                 </div>
             </div>
         );
@@ -139,14 +146,16 @@ class TopBar extends React.Component {
                 className="topBar"
                 titleStyle={{ fontSize: 13 }}
                 iconStyleLeft={{ display: 'flex' }}
-                iconElementLeft={<MainLogo />}
+                iconElementLeft={<MainLogo/>}
                 iconElementRight={<BarOptions user={this.props.user} />}
             />
         );
     }
 
     static defaultProps = {};
-    static propTypes    = {};
+    static propTypes    = {
+        drawerCloser: PropTypes.func
+    };
 }
 
 
